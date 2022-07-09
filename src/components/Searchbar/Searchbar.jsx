@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { SearchbarWrap, InputWrap, SearchFormInput } from './Searchbar.styled';
+import {
+  SearchbarWrap,
+  InputWrap,
+  SearchFormInput,
+  Title,
+} from './Searchbar.styled';
 import { toast } from 'react-toastify';
 
 class Searchbar extends Component {
@@ -13,18 +18,25 @@ class Searchbar extends Component {
   // передаем в апп то что ввели в инпут
   handleSubmit = e => {
     e.preventDefault();
-    // console.log(this.state.inputName.trim() === '');
-    if (this.state.inputName.trim() === '') {
-      toast.error('Wow so easy!');
+    const userInput = this.state.inputName.trim();
+    if (userInput === '') {
+      toast.error('fill in the fields');
       return;
     }
     this.props.onSubmitForm(this.state.inputName);
+    // очищаем инпут
+    this.cleanInput();
+  };
+  // фун. очистки полей
+  cleanInput = () => {
     this.setState({ inputName: '' });
   };
 
   render() {
+    const name = this.props.searchName;
     return (
       <SearchbarWrap>
+        <Title>{name}</Title>
         <form onSubmit={this.handleSubmit}>
           <InputWrap>
             <SearchFormInput

@@ -1,7 +1,6 @@
-import React from 'react';
 import { MessageImage } from './ErrorMessageView.styled';
 
-const ErrorMessageViev = ({}) => {
+const ErrorMessageViev = () => {
   return (
     <MessageImage>
       <img

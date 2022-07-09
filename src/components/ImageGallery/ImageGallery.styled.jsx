@@ -11,9 +11,10 @@ export const ImageGalleryBox = styled.ul`
   list-style: none;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 `;
 
 export const Text = styled.div`
-  /* font-family: ; */
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
 `;
-

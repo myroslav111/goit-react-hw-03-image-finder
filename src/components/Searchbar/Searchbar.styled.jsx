@@ -4,20 +4,25 @@ export const SearchbarWrap = styled.div`
   top: 0;
   left: 0;
   position: sticky;
+  display: flex;
   z-index: 1100;
   min-height: 18px;
   padding-right: 24px;
   padding-left: 24px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 11px;
+  padding-bottom: 14px;
   color: #fff;
   background-color: rgba(63, 81, 181, 0.7);
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
 
-export const SearchForm = styled.button`
-  /*  */
+export const Title = styled.p`
+  margin: 0;
+  margin-right: 6px;
+  font-family: 'Caveat', cursive;
+  font-size: 23px;
+  text-align: center;
 `;
 
 export const InputWrap = styled.div`
@@ -25,6 +30,7 @@ export const InputWrap = styled.div`
   width: 15px;
   height: 15px;
   top: 3px;
+  top: 7px;
 `;
 
 export const SearchFormInput = styled.input`
@@ -40,10 +46,10 @@ export const SearchFormInput = styled.input`
   padding: 5px;
   position: relative;
   transition: all 250ms cubic-bezier(0.1, 0.5, 0.252, 1.1);
-  /* transition-delay: 2s; */
 
-  /*  */
   &:focus {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
     height: 25px;
     width: 250px;
     border-radius: 3px;
@@ -55,6 +61,7 @@ export const SearchFormInput = styled.input`
     color: #fff;
   }
   &:focus::placeholder {
+    font-size: 20px;
     color: #a1a1a1;
   }
 
@@ -78,21 +85,12 @@ export const SearchFormInput = styled.input`
     top: 24px;
     transform: rotate(45deg);
     transition: all 250ms cubic-bezier(0.2, 0.6, 0.252, 1.2);
-    /* transition-delay: 3s; */
   }
   /* */
   &:focus ~ div {
-    /* box-shadow: none; */
     top: 6px;
-    /* left: 215px; */
-    /* padding: 8px 16px; */
-    /* border-radius: 2px; */
-    /* background-color: #3f51b5; */
-    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    /* transition-delay: 3s; */
     text-align: center;
     display: inline-block;
-    /* color: #fff; */
     border: 0;
     text-decoration: none;
     cursor: pointer;
@@ -101,43 +99,27 @@ export const SearchFormInput = styled.input`
     line-height: 24px;
     font-style: normal;
     font-weight: 500;
-    transform: rotate(180deg);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 100;
     display: none;
-    /* width: 38px; */
-    /* height: 25px; */
-    /* box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); */
-  }
-
-  /* & ~ div span {
-    opacity: 0;
-    font-size: 10px;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
     transform: rotate(180deg);
-  } */
-
-  /* &:focus ~ div span {
-    opacity: 1;
-  } */
+  }
 
   & ~ button {
     background: none;
     border: none;
     padding: 0;
-    /* cursor: none; */
     outline: inherit;
     position: absolute;
     top: 5px;
     left: 215px;
     border-radius: 2px;
-    /* background-color: #3f51b5; */
     background-color: transparent;
     text-align: center;
     display: inline-block;
-    /* color: #fff; */
     color: transparent;
     border: 0;
     text-decoration: none;
@@ -152,13 +134,11 @@ export const SearchFormInput = styled.input`
     z-index: 100;
     width: 38px;
     height: 25px;
-    /* 
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); */
   }
 
   &:focus ~ button {
-    /* left: 215px; */
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
     background-color: #fff;
     color: #3f51b5;
     width: 38px;
@@ -169,10 +149,6 @@ export const SearchFormInput = styled.input`
 
     &:hover {
       transform: scale(1.1);
-      /* background-color: rgba(63, 81, 181, 0.7);
-      color: #fff; */
     }
-    /* transition: all 250ms cubic-bezier(0.2, 0.6, 0.252, 1.2);
-    transition-delay: 1s; */
   }
 `;

@@ -2,68 +2,45 @@ import React, { Component } from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import { ImageGalleryBox, Text } from './ImageGallery.styled';
 import Modal from 'components/Modal';
-import Loader from 'components/Loader';
 import { toast } from 'react-toastify';
 import ErrorMessageViev from 'components/ErrorMessageView/ErrorMessageView';
 import pixabayApi from '../services/pixabay-api';
-// import ErrorMessageView from './ErrorMessageView';
-// import { nanoid } from 'nanoid';
-
-// const ImageGallery = ({ items, onCloseOpenModal }) => {
-//   return (
-//     <ImageGalleryBox>
-//       {items.map(({ webformatURL, id }) => (
-//         <ImageGalleryItem
-//           key={id}
-//           item={webformatURL}
-//           id={id}
-//           onCloseOpenModal={onCloseOpenModal}
-//         />
-//       ))}
-//     </ImageGalleryBox>
-//   );
-// };
 
 class ImageGallery extends Component {
   state = {
     idx: null,
     showModal: false,
-    pictures: null,
-    searchName: '',
-    // loading: false,
+    pictures: [],
     error: null,
     status: 'idle',
+    page: 1,
   };
   // проверяем было ли изменение запроса если да то делаем новый запрос
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.searchName;
     const nextName = this.props.searchName;
-    // console.log('>', prevName);
-    // console.log(nextName);
-    // console.log(prevName !== nextName);
-
+    const pageNum = this.props.numPage;
+    //если запросили нового персонажа очищаем дом перед рендером нового запроса
     if (prevName !== nextName) {
-      // this.setState({ loading: true, pictures: null });
-      this.setState({ status: 'pending' });
-      // console.log('change');
-
+      this.setState({ pictures: [] });
+    }
+    // проверка на изменение пропсов и стейта текущего и прошлого
+    if (prevName !== nextName || prevProps.numPage !== this.props.numPage) {
       pixabayApi
-        .fetchPage(nextName)
-        // fetch(
-        //   `https://pixabay.com/api/?key=23788919-1e868a4f1ae72234cc449d190&q=${nextName}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=1`
-        // )
-        //   .then(res => res.json())
-        // .then(pictures => this.setState({ pictures }))
-        .then(pictures => {
-          if (pictures.hits.length === 0) {
+        .fetchPage(nextName, pageNum)
+        .then(picturess => {
+          if (picturess.hits.length === 0) {
             return Promise.reject(
               new Error(toast.error(`not found ${nextName}`))
             );
           }
-          this.setState({ pictures, status: 'resolved' });
+          this.setState(({ pictures, status }) => ({
+            pictures: [...pictures, picturess.hits],
+            status: 'resolved',
+          }));
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
-      // .finally(() => this.setState({ loading: false }));
+      // .finally(this.props.toggle());
     }
   }
 
@@ -81,17 +58,16 @@ class ImageGallery extends Component {
 
   render() {
     const { pictures, idx, showModal, status } = this.state;
+    const newPictures = pictures.flatMap(e => e);
     // машина состояния
     if (status === 'idle') {
-      return <Text>Start to search</Text>;
+      return <Text>Start your search</Text>;
     }
-    if (status === 'pending') {
-      return <Loader />;
-    }
+    //  когда все гуд
     if (status === 'resolved') {
       return (
         <ImageGalleryBox>
-          {pictures.hits.map(({ webformatURL, id, tags }) => (
+          {newPictures.map(({ webformatURL, id, tags }) => (
             <ImageGalleryItem
               key={id}
               item={webformatURL}
@@ -102,7 +78,7 @@ class ImageGallery extends Component {
           ))}
           {showModal && (
             <Modal
-              img={pictures.hits}
+              img={newPictures}
               onCloseOpenModal={this.toggleModal}
               currentId={idx}
             />
@@ -110,6 +86,7 @@ class ImageGallery extends Component {
         </ImageGalleryBox>
       );
     }
+    // когда чет пошло не так вернулся кривой респонс с бека
     if (status === 'rejected') {
       return <ErrorMessageViev />;
     }
@@ -117,27 +94,3 @@ class ImageGallery extends Component {
 }
 
 export default ImageGallery;
-
-// return (
-//   <ImageGalleryBox>
-//     {/* {error && toast.error('Wow so easy!')} */}
-//     {/* {this.state.loading && <Loader />} */}
-//     {/* {!this.state.pictures && <Loader />} */}
-//      {pictures &&
-//       pictures.hits.map(({ webformatURL, id }) => (
-//         <ImageGalleryItem
-//           key={id}
-//           item={webformatURL}
-//           id={id}
-//           onCloseOpenModal={this.toggleModal}
-//         />
-//       ))}
-//     {showModal && (
-//       <Modal
-//         img={pictures.hits}
-//         onCloseOpenModal={this.toggleModal}
-//         currentId={idx}
-//       />
-//     )}
-//   </ImageGalleryBox>
-// );

@@ -25,7 +25,7 @@ class Modal extends Component {
       this.props.onCloseOpenModal();
     }
   };
-
+  // выбираем нужную пейджу для модалки
   getImgByIndex = () => {
     const pageForModal = this.props.img.find(
       page => Number(this.props.currentId) === Number(page.id)
