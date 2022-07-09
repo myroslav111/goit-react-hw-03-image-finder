@@ -7,8 +7,8 @@ export const SearchbarWrap = styled.div`
   display: flex;
   z-index: 1100;
   min-height: 18px;
-  padding-right: 24px;
-  padding-left: 24px;
+  padding-right: 15px;
+  padding-left: 15px;
   padding-top: 11px;
   padding-bottom: 14px;
   color: #fff;
@@ -55,6 +55,9 @@ export const SearchFormInput = styled.input`
     border-radius: 3px;
     color: #26547c;
     cursor: initial;
+    @media screen and (max-width: 500px) {
+      width: 170px;
+    }
   }
 
   &::placeholder {
@@ -63,6 +66,9 @@ export const SearchFormInput = styled.input`
   &:focus::placeholder {
     font-size: 20px;
     color: #a1a1a1;
+    @media screen and (max-width: 500px) {
+      font-size: 13px;
+    }
   }
 
   & ~ div {
@@ -134,6 +140,9 @@ export const SearchFormInput = styled.input`
     z-index: 100;
     width: 38px;
     height: 25px;
+    @media screen and (max-width: 500px) {
+      left: 137px;
+    }
   }
 
   &:focus ~ button {
