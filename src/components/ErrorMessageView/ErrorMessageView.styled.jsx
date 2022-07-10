@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 
 export const MessageImage = styled.div`
-  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const Image = styled.img`
+  width: 400px;
 `;

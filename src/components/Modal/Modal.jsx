@@ -16,29 +16,23 @@ class Modal extends Component {
   // фун. закрыти модалки по esc
   hendleKeyDown = e => {
     if (e.code === 'Escape') {
-      this.props.onCloseOpenModal();
+      this.props.closeModal();
     }
   };
   // фун. закрыти модалки по backdrop
   handleBakcdropClick = e => {
     if (e.target === e.currentTarget) {
-      this.props.onCloseOpenModal();
+      this.props.closeModal();
     }
-  };
-  // выбираем нужную пейджу для модалки
-  getImgByIndex = () => {
-    const pageForModal = this.props.img.find(
-      page => Number(this.props.currentId) === Number(page.id)
-    );
-    return pageForModal.largeImageURL;
   };
 
   render() {
-    const ref = this.getImgByIndex();
+    const ref = this.props.urlPhoto;
+
     return createPortal(
       <Overlay onClick={this.handleBakcdropClick}>
         <ModalPage>
-          <Img src={ref} alt="" />
+          <Img src={ref} alt="pfoto" />
         </ModalPage>
       </Overlay>,
       modalRoot

@@ -50,7 +50,6 @@ class Searchbar extends Component {
             <div>
               <span></span>
             </div>
-
             <button type="submit">
               <span>Finde</span>
             </button>
